@@ -23,6 +23,8 @@ public class AudioSettingsManager : MonoBehaviour
 
       DontDestroyOnLoad(gameObject);
     }
+
+    LoadSettings();
   }
 
   private void OnEnable() {
@@ -34,8 +36,11 @@ public class AudioSettingsManager : MonoBehaviour
   }
 
   private void Start() {
-    LoadSettings();
     LoadVolumes();
+  }
+
+  private void OnDestroy() {
+    SaveSettings();
   }
 
   private void LoadSettings() {
@@ -46,7 +51,7 @@ public class AudioSettingsManager : MonoBehaviour
   }
 
   private void LoadVolumes() {
-    if (_gameSettings.IsMusicOn == true)
+    if (_gameSettings.IsAudioOn == true)
       _mixer.SetFloat(Hashes.MasterVolume, 0);
     else
       _mixer.SetFloat(Hashes.MasterVolume, -80f);
@@ -57,13 +62,17 @@ public class AudioSettingsManager : MonoBehaviour
 
     if (currentVolume == 0) {
       _mixer.SetFloat(Hashes.MasterVolume, -80f);
-      _gameSettings.IsMusicOn = false;
+      _gameSettings.IsAudioOn = false;
     }
     else {
       _mixer.SetFloat(Hashes.MasterVolume, 0);
-      _gameSettings.IsMusicOn = true;
+      _gameSettings.IsAudioOn = true;
     }
 
+    SaveSettings();
+  }
+
+  private void SaveSettings() {
     SettingsManager.SaveSettings(_gameSettings);
   }
 }

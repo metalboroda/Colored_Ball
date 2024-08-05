@@ -22,6 +22,10 @@ namespace Assets.Scripts.UI
       LoadSettings();
     }
 
+    private void OnDisable() {
+      SaveSettings();
+    }
+
     private void Start() {
       SubscribeButtons();
       UpdateAudioButtonVisuals();
@@ -50,17 +54,17 @@ namespace Assets.Scripts.UI
     }
 
     private void SwitchAudioVolumeButton() {
-      _gameSettings.IsMusicOn = !_gameSettings.IsMusicOn;
+      _gameSettings.IsAudioOn = !_gameSettings.IsAudioOn;
 
       UpdateAudioButtonVisuals();
+      SaveSettings();
 
       EventBus<EventStructs.AudioSwitchedEvent>.Raise();
-      SettingsManager.SaveSettings(_gameSettings);
     }
 
     private void UpdateAudioButtonVisuals() {
-      _audioOnIcon.SetActive(_gameSettings.IsMusicOn);
-      _audioOffIcon.SetActive(!_gameSettings.IsMusicOn);
+      _audioOnIcon.SetActive(_gameSettings.IsAudioOn);
+      _audioOffIcon.SetActive(!_gameSettings.IsAudioOn);
     }
 
     private void LoadSettings() {
@@ -68,6 +72,10 @@ namespace Assets.Scripts.UI
 
       if (_gameSettings == null)
         _gameSettings = new GameSettings();
+    }
+
+    private void SaveSettings() {
+      SettingsManager.SaveSettings(_gameSettings);
     }
   }
 }

@@ -21,8 +21,7 @@ namespace Assets.Scripts.Infrastructure
     #endregion
 
     #region Audio Settings
-    public bool IsMusicOn = true;
-    public bool IsSfxOn = true;
+    public bool IsAudioOn = true;
     #endregion
   }
 }
