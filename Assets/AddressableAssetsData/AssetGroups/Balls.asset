@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Balls
+  m_EditorClassIdentifier: 
+  m_GroupName: Balls
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f513724f2946bc4419973dc6470ed312
+  m_SerializeEntries:
+  - m_GUID: aff9d9c6e7185ce4488d7f59dffea8ca
+    m_Address: Assets/Prefab/Ball/Player_Ball_1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba97b432e0722e048b7797f047075f7e
+    m_Address: Assets/Prefab/Ball/Player_Ball_2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53ab371ccb196f24183d285cd1ecd10d
+    m_Address: Assets/Prefab/Ball/Player_Ball_3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a2ce820a99ef5b4caa34f8f1e59b4b4
+    m_Address: Assets/Prefab/Ball/Player_Ball_4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 44070db97d99f634895acef274a4c5ae, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d05a75bb516d7f0478d466be776f8471, type: 2}
+    - {fileID: 11400000, guid: c769fa6257bdded4898345d20a0b1e10, type: 2}
