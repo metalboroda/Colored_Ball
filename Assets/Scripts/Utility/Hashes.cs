@@ -1,14 +1,10 @@
 namespace Assets.Scripts.Utility
 {
-  public abstract class Hashes
+  public class Hashes
   {
     #region Scenes
     public const string MainMenuScene = "MainMenuScene";
-    public const string GameScene = "GameScene"; 
-    #endregion
-
-    #region Audio
-    public const string MasterVolume = "MasterVolume";
+    public const string GameScene = "GameScene";
     #endregion
   }
 }

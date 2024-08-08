@@ -1,6 +1,8 @@
 using Assets.Scripts.EventBus;
 using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Infrastructure.GameStates;
+using Assets.Scripts.Utility;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.ShopLogic
@@ -17,8 +19,6 @@ namespace Assets.Scripts.ShopLogic
     private GameObject _currentCharacterInstance;
     private string _currentCharacterName;
 
-    private GameSettings _gameSettings;
-
     private GameBootstrapper _gameBootstrapper;
 
     private EventBinding<EventStructs.StateChanged> _stateChangedEvent;
@@ -33,7 +33,6 @@ namespace Assets.Scripts.ShopLogic
     }
 
     private void OnEnable() {
-
       _stateChangedEvent = new EventBinding<EventStructs.StateChanged>(OnGameStateChanged);
       _uiButtonPressedEvent = new EventBinding<EventStructs.UIButtonPressed>(OnUIButtonPressed);
     }
@@ -49,7 +48,6 @@ namespace Assets.Scripts.ShopLogic
 
     private void OnGameStateChanged(EventStructs.StateChanged stateChanged) {
       if (stateChanged.State is GameShopState) {
-
         _characterContainer.SetActive(true);
 
         if (_shopItems.Length > 0) {
@@ -145,32 +143,33 @@ namespace Assets.Scripts.ShopLogic
     }
 
     private void SaveSettings() {
-      _gameSettings.UnlockedCharacters.Clear();
+      List<bool> unlockedCharacters = new List<bool>();
 
       foreach (var item in _shopItems) {
-        _gameSettings.UnlockedCharacters.Add(item.Unlocked);
+        unlockedCharacters.Add(item.Unlocked);
       }
 
-      _gameSettings.BallName = _currentCharacterName;
-
-      SettingsManager.SaveSettings(_gameSettings);
+      ES3.Save(SettingsHashes.UnlockedCharacters, unlockedCharacters);
+      ES3.Save(SettingsHashes.BallName, _currentCharacterName);
     }
 
     private void LoadSettings() {
-      _gameSettings = SettingsManager.LoadSettings<GameSettings>();
+      if (ES3.KeyExists(SettingsHashes.UnlockedCharacters)) {
+        List<bool> unlockedCharacters = ES3.Load<List<bool>>(SettingsHashes.UnlockedCharacters);
 
-      if (_gameSettings == null)
-        _gameSettings = new GameSettings();
-
-      if (_gameSettings != null) {
         for (int i = 0; i < _shopItems.Length; i++) {
-          if (i < _gameSettings.UnlockedCharacters.Count) {
-            _shopItems[i].Unlocked = _gameSettings.UnlockedCharacters[i];
+          if (i < unlockedCharacters.Count) {
+            _shopItems[i].Unlocked = unlockedCharacters[i];
           }
         }
       }
 
-      _currentCharacterName = _gameSettings.BallName;
+      if (ES3.KeyExists(SettingsHashes.BallName)) {
+        _currentCharacterName = ES3.Load<string>(SettingsHashes.BallName);
+      }
+      else {
+        _currentCharacterName = "Player_Ball_1";
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 using Assets.Scripts.EventBus;
-using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,16 +14,10 @@ namespace Assets.Scripts.UI
     [SerializeField] private GameObject _audioOnIcon;
     [SerializeField] private GameObject _audioOffIcon;
 
-    private GameSettings _gameSettings;
+    private bool _isAudioOn;
 
     private void Awake() {
-      _gameSettings = new GameSettings();
-
       LoadSettings();
-    }
-
-    private void OnDisable() {
-      SaveSettings();
     }
 
     private void Start() {
@@ -54,7 +48,7 @@ namespace Assets.Scripts.UI
     }
 
     private void SwitchAudioVolumeButton() {
-      _gameSettings.IsAudioOn = !_gameSettings.IsAudioOn;
+      _isAudioOn = !_isAudioOn;
 
       UpdateAudioButtonVisuals();
       SaveSettings();
@@ -63,19 +57,16 @@ namespace Assets.Scripts.UI
     }
 
     private void UpdateAudioButtonVisuals() {
-      _audioOnIcon.SetActive(_gameSettings.IsAudioOn);
-      _audioOffIcon.SetActive(!_gameSettings.IsAudioOn);
+      _audioOnIcon.SetActive(_isAudioOn);
+      _audioOffIcon.SetActive(!_isAudioOn);
     }
 
     private void LoadSettings() {
-      _gameSettings = SettingsManager.LoadSettings<GameSettings>();
-
-      if (_gameSettings == null)
-        _gameSettings = new GameSettings();
+      _isAudioOn = ES3.Load<bool>(SettingsHashes.IsAudioOn);
     }
 
     private void SaveSettings() {
-      SettingsManager.SaveSettings(_gameSettings);
+      ES3.Save(SettingsHashes.IsAudioOn, _isAudioOn);
     }
   }
 }

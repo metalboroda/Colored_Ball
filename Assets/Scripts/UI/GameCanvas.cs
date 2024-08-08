@@ -1,5 +1,5 @@
 using Assets.Scripts.EventBus;
-using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +14,10 @@ namespace Assets.Scripts.UI
     [SerializeField] private TextMeshProUGUI _levelCounterText;
     [SerializeField] private TextMeshProUGUI _coinCounterText;
 
-    private GameSettings _gameSettings;
-
     private EventBinding<EventStructs.UpdateCoinAmount> _updateCoinAmountEvent;
 
     private void Awake() {
-      LoadSettings();
+      LoadLevelCounter();
     }
 
     private void OnEnable() {
@@ -52,13 +50,8 @@ namespace Assets.Scripts.UI
       _coinCounterText.text = updateCoinAmount.Amount.ToString();
     }
 
-    private void LoadSettings() {
-      _gameSettings = SettingsManager.LoadSettings<GameSettings>();
-
-      if (_gameSettings == null)
-        _gameSettings = new GameSettings();
-
-      _levelCounterText.text = $"Level: {_gameSettings.OverallLevelIndex + 1}";
+    private void LoadLevelCounter() {
+      _levelCounterText.text = $"Level: {ES3.Load(SettingsHashes.OverallLevelIndex, 0) + 1}";
     }
   }
 }

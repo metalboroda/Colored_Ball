@@ -15,6 +15,7 @@ namespace Assets.Scripts.Grid
 
     public void SpawnPlayer(string ballName, Vector3 gridSize, Transform parent) {
       string assetPath = $"Assets/Prefab/Ball/{ballName}.prefab";
+
       Addressables.LoadAssetAsync<GameObject>(assetPath).Completed += handle => OnPlayerSpawned(handle, parent);
     }
 

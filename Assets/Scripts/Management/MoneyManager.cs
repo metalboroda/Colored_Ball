@@ -1,8 +1,8 @@
 using Assets.Scripts.EventBus;
 using Assets.Scripts.Infrastructure.GameStates;
-using Assets.Scripts.Infrastructure;
-using UnityEngine;
+using Assets.Scripts.Utility;
 using System.Collections;
+using UnityEngine;
 
 public class MoneyManager
 {
@@ -11,7 +11,6 @@ public class MoneyManager
   private Coroutine _eventCoroutine;
 
   private MonoBehaviour _monoBehaviour;
-  private GameSettings _gameSettings;
 
   private EventBinding<EventStructs.CoinPickedUp> _coinPickedUpEvent;
   private EventBinding<EventStructs.StateChanged> _stateChangeEvent;
@@ -22,7 +21,6 @@ public class MoneyManager
     _coinPickedUpEvent = new EventBinding<EventStructs.CoinPickedUp>(OnCoinPickedUp);
     _stateChangeEvent = new EventBinding<EventStructs.StateChanged>(OnStateChangeEvent);
 
-    LoadSettings();
     LoadCoinAmount();
   }
 
@@ -36,8 +34,6 @@ public class MoneyManager
   public void Dispose() {
     _coinPickedUpEvent.Remove(OnCoinPickedUp);
     _stateChangeEvent.Remove(OnStateChangeEvent);
-
-    SaveCoinAmount();
   }
 
   public void SendEvents() {
@@ -70,19 +66,10 @@ public class MoneyManager
   }
 
   private void SaveCoinAmount() {
-    _gameSettings.CoinAmount = CoinAmount;
-
-    SettingsManager.SaveSettings(_gameSettings);
-  }
-
-  private void LoadSettings() {
-    _gameSettings = SettingsManager.LoadSettings<GameSettings>();
-
-    if (_gameSettings == null)
-      _gameSettings = new GameSettings();
+    ES3.Save(SettingsHashes.CoinAmount, CoinAmount);
   }
 
   private void LoadCoinAmount() {
-    CoinAmount = _gameSettings.CoinAmount;
+    CoinAmount = ES3.Load(SettingsHashes.CoinAmount, 0);
   }
 }

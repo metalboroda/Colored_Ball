@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.EventBus;
-using Assets.Scripts.Infrastructure;
 using Assets.Scripts.Memento;
+using Assets.Scripts.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -98,13 +98,7 @@ namespace Assets.Scripts.Grid
     }
 
     private void SpawnPlayer() {
-      var settings = SettingsManager.LoadSettings<GameSettings>();
-
-      if (settings == null) {
-        settings = new GameSettings();
-      }
-
-      string selectedBallName = settings.BallName;
+      string selectedBallName = ES3.Load<string>(SettingsHashes.BallName);
 
       _playerSpawner.SpawnPlayer(selectedBallName, _gridSize, transform);
     }
