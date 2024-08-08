@@ -28,8 +28,6 @@ namespace Assets.Scripts.ShopLogic
       Instance = this;
 
       _gameBootstrapper = GameBootstrapper.Instance;
-
-      LoadSettings();
     }
 
     private void OnEnable() {
@@ -42,12 +40,10 @@ namespace Assets.Scripts.ShopLogic
       _uiButtonPressedEvent.Remove(OnUIButtonPressed);
     }
 
-    private void OnDestroy() {
-      SaveSettings();
-    }
-
     private void OnGameStateChanged(EventStructs.StateChanged stateChanged) {
       if (stateChanged.State is GameShopState) {
+        LoadSettings();
+
         _characterContainer.SetActive(true);
 
         if (_shopItems.Length > 0) {
@@ -60,7 +56,6 @@ namespace Assets.Scripts.ShopLogic
         _characterContainer.SetActive(false);
 
         DestroyCurrentCharacter();
-        SaveSettings();
       }
     }
 
@@ -143,14 +138,14 @@ namespace Assets.Scripts.ShopLogic
     }
 
     private void SaveSettings() {
-      List<bool> unlockedCharacters = new List<bool>();
+      List<bool> unlockedCharacters = new();
 
       foreach (var item in _shopItems) {
         unlockedCharacters.Add(item.Unlocked);
       }
 
-      ES3.Save(SettingsHashes.UnlockedCharacters, unlockedCharacters);
-      ES3.Save(SettingsHashes.BallName, _currentCharacterName);
+      ES3.Save(SettingsHashes.UnlockedCharacters, unlockedCharacters, SettingsHashes.SavePath);
+      ES3.Save(SettingsHashes.BallName, _currentCharacterName, SettingsHashes.SavePath);
     }
 
     private void LoadSettings() {

@@ -98,7 +98,14 @@ namespace Assets.Scripts.Grid
     }
 
     private void SpawnPlayer() {
-      string selectedBallName = ES3.Load<string>(SettingsHashes.BallName);
+      string selectedBallName;
+
+      if (ES3.KeyExists(SettingsHashes.BallName)) {
+        selectedBallName = ES3.Load<string>(SettingsHashes.BallName);
+      }
+      else {
+        selectedBallName = "Player_Ball_1";
+      }
 
       _playerSpawner.SpawnPlayer(selectedBallName, _gridSize, transform);
     }

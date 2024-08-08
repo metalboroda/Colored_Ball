@@ -2,6 +2,10 @@ namespace Assets.Scripts.Utility
 {
   public class SettingsHashes
   {
+    #region SavePath
+    public const string SavePath = "Saves/SaveFile.es3";
+    #endregion
+
     #region Audio
     public const string IsAudioOn = "IsAudioOn";
     public const string MasterVolume = "MasterVolume";

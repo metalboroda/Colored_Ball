@@ -62,7 +62,7 @@ namespace Assets.Scripts.UI
     }
 
     private void LoadSettings() {
-      _isAudioOn = ES3.Load<bool>(SettingsHashes.IsAudioOn);
+      _isAudioOn = ES3.Load(SettingsHashes.IsAudioOn, _isAudioOn = true);
     }
 
     private void SaveSettings() {
