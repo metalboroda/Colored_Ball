@@ -1,6 +1,0 @@
-{
-	"CoinAmount" : {
-		"__type" : "int",
-		"value" : 150
-	}
-}
