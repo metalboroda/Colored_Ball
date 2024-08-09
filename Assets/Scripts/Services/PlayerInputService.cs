@@ -13,6 +13,7 @@ namespace Assets.Scripts.Services
 
     public PlayerInputService() {
       _playerInputActions = new PlayerInputActions();
+
       EnableBasicMap();
     }
 
@@ -22,14 +23,14 @@ namespace Assets.Scripts.Services
 
     public Vector2 GetMovementDirection() {
 #if UNITY_ANDROID || UNITY_IOS
-                return GetSwipeDirection();
+      return GetSwipeDirection();
 #else
       return _playerInputActions.Basic.Movement.ReadValue<Vector2>();
 #endif
     }
 
     private Vector2 GetSwipeDirection() {
-      if (Touchscreen.current.primaryTouch.press.isPressed) {
+      if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed) {
         if (!_isSwiping) {
           _startTouchPosition = Touchscreen.current.primaryTouch.position.ReadValue();
           _isSwiping = true;

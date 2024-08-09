@@ -1,0 +1,18 @@
+{
+	"LevelIndex" : {
+		"__type" : "int",
+		"value" : 1
+	},
+	"OverallLevelIndex" : {
+		"__type" : "int",
+		"value" : 1
+	},
+	"CoinAmount" : {
+		"__type" : "int",
+		"value" : 240
+	},
+	"IsAudioOn" : {
+		"__type" : "bool",
+		"value" : true
+	}
+}

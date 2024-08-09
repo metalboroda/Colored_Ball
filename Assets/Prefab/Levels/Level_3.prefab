@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4800561883150174637, guid: 88f038c6d06f56a4985b7e7a76d77c34, type: 3}
       propertyPath: field of view
-      value: 65
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 5460815727037282744, guid: 88f038c6d06f56a4985b7e7a76d77c34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7248570044067816721, guid: 88f038c6d06f56a4985b7e7a76d77c34, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 65
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 7547020361690523794, guid: 88f038c6d06f56a4985b7e7a76d77c34, type: 3}
       propertyPath: m_Name
